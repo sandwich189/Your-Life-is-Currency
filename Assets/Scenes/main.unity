@@ -112,6 +112,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9636846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9636848}
+  - component: {fileID: 9636847}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &9636847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9636846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57d3864be36d82439c7d64e14524d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &9636848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9636846}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &185983335
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,9 +186,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   genAreaRadiusX: 70
   genAreaRadiusY: 50
-  spawnNumbers: 5
-  objectsToSpawn: {fileID: 4980821674773542176, guid: 326d9270917cc1046b1c8ce299f935be,
-    type: 3}
+  spawnNumbers: 20
+  objectsToSpawn:
+  - {fileID: 6431414850828053730, guid: f0235d68997c57b489dc0cb413414a43, type: 3}
+  - {fileID: 4980821674773542176, guid: 326d9270917cc1046b1c8ce299f935be, type: 3}
+  curSpawn: 0
+  respawnResourcesTime: 10
 --- !u!4 &185983337
 Transform:
   m_ObjectHideFlags: 0
@@ -155,10 +201,10 @@ Transform:
   m_GameObject: {fileID: 185983335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.08, y: -0.02, z: -0.3984375}
-  m_LocalScale: {x: 5.038523, y: 3.5969062, z: 1}
+  m_LocalScale: {x: 34.09663, y: 17.170168, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240681779
 GameObject:
@@ -170,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 240681780}
   - component: {fileID: 240681781}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: S_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 284842245}
   - component: {fileID: 284842246}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: S_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,9 +376,9 @@ GameObject:
   - component: {fileID: 668413859}
   - component: {fileID: 668413862}
   - component: {fileID: 668413860}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,7 +396,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  damage: 0
   attackSpeed: 0.3
+  attackRange: 1.15
+  hittable:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &668413860
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -495,7 +546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1670330951}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

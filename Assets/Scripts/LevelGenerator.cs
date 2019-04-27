@@ -15,65 +15,96 @@ public class LevelGenerator : MonoBehaviour
 
     private bool canSpawn = false;
 
+    public int curSpawn = 0;
+
+    public float respawnResourcesTime = 30f;
+    private float timeBtwSpawn = 30f;
+
     // Start is called before the first frame update
     void Start()
     {
         StartSpawn();
+
+        timeBtwSpawn = respawnResourcesTime;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (timeBtwSpawn <= 0)
+        {
+            if (curSpawn < spawnNumbers)
+            {
+                for (int i = curSpawn; i < spawnNumbers; i++)
+                {
+                    Spawn();
+                }
+                Debug.Log("spawned resources");
+                
+            }
+
+            timeBtwSpawn = respawnResourcesTime;
+        }
+        else
+        {
+            timeBtwSpawn -= Time.deltaTime;
+        }
         
     }
 
     void StartSpawn()
     {
+        for (int i = 0; i < spawnNumbers; i++)
+        {
+            Spawn();
+        }
+    }
+
+    void Spawn()
+    {
         int safetyNet = 0;
         int randomselect = 0;
 
-        for (int i = 0; i < spawnNumbers; i++)
+        while (!canSpawn)
         {
-            while (!canSpawn)
+            Vector3 origin = transform.position;
+            Vector3 range = transform.localScale / 2.0f;
+            Vector3 randomRange = new Vector3(Random.Range(-range.x, range.x),
+                                              Random.Range(-range.y, range.y));
+
+            int chance = Random.Range(0, 100);
+
+            if (chance <= 30)
             {
-                Vector3 origin = transform.position;
-                Vector3 range = transform.localScale / 2.0f;
-                Vector3 randomRange = new Vector3(Random.Range(-range.x, range.x),
-                                                  Random.Range(-range.y, range.y));
+                randomselect = 0;
+            }
 
-                int chance = Random.Range(0, 100);
+            if (chance > 30)
+            {
+                randomselect = 1;
+            }
 
-                if (chance <= 30)
-                {
-                    randomselect = 0;
-                }
+            spawnPosition = origin + randomRange;
 
-                if (chance > 30)
-                {
-                    randomselect = 1;
-                }
+            if (Physics2D.OverlapCircle(spawnPosition, 3f) == null)
+            {
+                canSpawn = true;
+            }
 
-                spawnPosition = origin + randomRange;
+            if (canSpawn)
+            {
+                GameObject newObject = Instantiate(objectsToSpawn[randomselect], spawnPosition, Quaternion.identity);
+                curSpawn += 1;
+                canSpawn = false;
+                break;
+            }
 
-                if (Physics2D.OverlapCircle(spawnPosition, 3f) == null)
-                {
-                    canSpawn = true;
-                }
+            safetyNet++;
 
-                if (canSpawn)
-                {
-                    GameObject newObject = Instantiate(objectsToSpawn[randomselect], spawnPosition, Quaternion.identity);
-                    canSpawn = false;
-                    break;
-                }
-
-                safetyNet++;
-
-                if (safetyNet > 50)
-                {
-                    Debug.Log("Too many attempts");
-                    break;
-                }
+            if (safetyNet > 50)
+            {
+                Debug.Log("Too many attempts");
+                break;
             }
         }
     }

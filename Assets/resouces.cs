@@ -14,4 +14,9 @@ public class resouces : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        GameObject.Find("Level Generator").GetComponent<LevelGenerator>().curSpawn -= 1;
+    }
 }
