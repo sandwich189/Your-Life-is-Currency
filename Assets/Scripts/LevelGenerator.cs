@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] objectsToSpawn;
 
     private Vector3 spawnPosition;
+    private Transform resourceHolder;
 
     private bool canSpawn = false;
 
@@ -23,6 +24,7 @@ public class LevelGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        resourceHolder = GameObject.Find("ResourceHolder").transform;
         StartSpawn();
 
         timeBtwSpawn = respawnResourcesTime;
@@ -94,6 +96,7 @@ public class LevelGenerator : MonoBehaviour
             if (canSpawn)
             {
                 GameObject newObject = Instantiate(objectsToSpawn[randomselect], spawnPosition, Quaternion.identity);
+                newObject.transform.SetParent(resourceHolder);
                 curSpawn += 1;
                 canSpawn = false;
                 break;

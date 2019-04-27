@@ -9,14 +9,10 @@ public class resouces : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(hp <= 0)
+        if (hp <= 0)
         {
+            GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>().curSpawn -= 1;
             Destroy(gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        GameObject.Find("Level Generator").GetComponent<LevelGenerator>().curSpawn -= 1;
     }
 }
