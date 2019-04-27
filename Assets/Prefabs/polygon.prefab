@@ -120,3 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  wood: 0
+  stone: 1
+  iron: 0
+  gold: 0
