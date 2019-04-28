@@ -6,6 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     private GameObject ui;
+    private Player player;
 
     private GameObject resourceHolder;
     private TextMeshProUGUI txt_wood;
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player").gameObject.GetComponent<Player>();
         ui = this.gameObject.transform.GetChild(0).gameObject;
         resourceHolder = ui.transform.GetChild(0).gameObject;
 
@@ -38,6 +40,12 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        ui_wood = player.wood;
+        ui_stone = player.stone;
+        ui_iron = player.iron;
+        ui_gold = player.gold;
+
         txt_wood = woodHolder.GetComponent<TextMeshProUGUI>();
         txt_wood.text = "Wood: " + ui_wood;
 

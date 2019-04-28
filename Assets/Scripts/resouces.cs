@@ -38,22 +38,21 @@ public class resouces : MonoBehaviour
         if (hp <= 0)
         {
             switch (resourcetype)
-
             {
             case 0:
-                GameObject.Find("UIManager").GetComponent<UIManager>().ui_wood += 1;
+                GameObject.Find("Player").GetComponent<Player>().wood += 1;
                 break;
 
             case 1:
-                GameObject.Find("UIManager").GetComponent<UIManager>().ui_stone += 1;
+                GameObject.Find("Player").GetComponent<Player>().stone += 1;
                 break;
 
             case 2:
-                GameObject.Find("UIManager").GetComponent<UIManager>().ui_iron += 1;
+                GameObject.Find("Player").GetComponent<Player>().iron += 1;
                 break;
 
             case 3:
-                GameObject.Find("UIManager").GetComponent<UIManager>().ui_gold += 1;
+                GameObject.Find("Player").GetComponent<Player>().gold += 1;
                 break;
             }
 
