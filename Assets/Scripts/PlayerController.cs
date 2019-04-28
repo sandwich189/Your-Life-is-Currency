@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
 
     public float attackRange = 1f;
     public LayerMask hittable;
+    public LayerMask shopLayer;
+
+    public GameObject shopUI;
+    private bool shopOpen = false;
 
     private int dir = -1;
 
@@ -45,7 +49,7 @@ public class PlayerController : MonoBehaviour
             dir = -1;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetMouseButtonDown(0)))
         {
             if(timeBtwAttack <= 0)
             {
@@ -60,6 +64,25 @@ public class PlayerController : MonoBehaviour
         else
         {
             timeBtwAttack = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RaycastHit2D shop = Physics2D.Raycast(transform.position, Vector2.right * dir, attackRange, shopLayer);
+
+            if (!shopOpen)
+            {
+                if (shop)
+                {
+                    shopUI.SetActive(true);
+                    shopOpen = true;
+                }
+            }
+            else if (shopOpen)
+            {
+               shopUI.SetActive(false);
+               shopOpen = false;
+            }
         }
     }
 

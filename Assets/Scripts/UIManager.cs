@@ -19,10 +19,24 @@ public class UIManager : MonoBehaviour
     private GameObject ironHolder;
     private GameObject goldHolder;
 
-    public int ui_wood = 0;
-    public int ui_stone = 0;
-    public int ui_iron = 0;
-    public int ui_gold = 0;
+    private int ui_wood = 0;
+    private int ui_stone = 0;
+    private int ui_iron = 0;
+    private int ui_gold = 0;
+
+    private int wood_hp, stone_hp, iron_hp, gold_hp;
+
+    public GameObject woodHpHolder;
+    public GameObject stoneHpHolder;
+    public GameObject ironHpHolder;
+    public GameObject goldHpHolder;
+
+    public GameObject woodHpIcon;
+    public GameObject stoneHpIcon;
+    public GameObject ironHpIcon;
+    public GameObject goldHpIcon;
+
+    private int w = 0, s = 0, i = 0, g = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +49,22 @@ public class UIManager : MonoBehaviour
         stoneHolder = resourceHolder.transform.GetChild(1).gameObject;
         ironHolder = resourceHolder.transform.GetChild(2).gameObject;
         goldHolder = resourceHolder.transform.GetChild(3).gameObject;
+
+        wood_hp = player.wood_hp;
+        stone_hp = player.stone_hp;
+        iron_hp = player.iron_hp;
+        gold_hp = player.gold_hp;
+
+        DrawHP();
     }
 
     // Update is called once per frame
     void Update()
     {
+        wood_hp = player.wood_hp;
+        stone_hp = player.stone_hp;
+        iron_hp = player.iron_hp;
+        gold_hp = player.gold_hp;
 
         ui_wood = player.wood;
         ui_stone = player.stone;
@@ -57,5 +82,41 @@ public class UIManager : MonoBehaviour
 
         txt_gold = goldHolder.GetComponent<TextMeshProUGUI>();
         txt_gold.text = "Gold: " + ui_gold;
+    }
+
+    public void DrawHP()
+    {
+        if(wood_hp < player.wood_hp)
+        {
+            w++;
+            GameObject whp = Instantiate(woodHpIcon, new Vector3(woodHpIcon.transform.position.x, woodHpIcon.transform.position.y - (w* 40)), Quaternion.identity);
+            whp.transform.SetParent(woodHpHolder.transform);
+        }
+
+        if(stone_hp < player.stone_hp)
+        {
+            s++;
+            GameObject shp = Instantiate(stoneHpIcon, new Vector3(stoneHpIcon.transform.position.x, stoneHpIcon.transform.position.y - (s*40)), Quaternion.identity);
+            shp.transform.SetParent(stoneHpHolder.transform);
+        }
+
+        if(iron_hp < player.iron_hp)
+        {
+            i++;
+            GameObject ihp = Instantiate(ironHpIcon, new Vector3(ironHpIcon.transform.position.x, ironHpIcon.transform.position.y - (i * 40)), Quaternion.identity);
+            ihp.transform.SetParent(ironHpHolder.transform);
+        }
+
+        if(gold_hp < player.gold_hp)
+        {
+            g++;
+            GameObject ghp = Instantiate(goldHpIcon, new Vector3(goldHpIcon.transform.position.x, goldHpIcon.transform.position.y - (g * 40)), Quaternion.identity);
+            ghp.transform.SetParent(goldHpHolder.transform);
+        }    
+    }
+
+    public void RemoveHP()
+    {
+        
     }
 }
