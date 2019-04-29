@@ -42,6 +42,9 @@ public class UIManager : MonoBehaviour
     public GameObject gameOver;
 
     public TextMeshProUGUI num_dayText;
+    public TextMeshProUGUI gameover_num_dayText;
+
+    public GameObject pause;
 
     private int w = 0, s = 0, i = 0, g = 0;
 
@@ -93,6 +96,7 @@ public class UIManager : MonoBehaviour
         txt_gold.text = "Gold: " + ui_gold;
 
         num_dayText.text = "DAY: " + gm.num_day;
+        gameover_num_dayText.text = "DAYS SURVIVED: \n" + (gm.num_day -1);
     }
 
     public void DrawHP()

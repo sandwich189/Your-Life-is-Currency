@@ -18,8 +18,11 @@ public class LevelGenerator : MonoBehaviour
 
     public int curSpawn = 0;
 
-    public float respawnResourcesTime = 30f;
+    private float respawnResourcesTime = 30f;
     private float timeBtwSpawn = 30f;
+
+    public float dayrespawnResourcesTime = 0;
+    public float nightrespawnResourcesTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +30,7 @@ public class LevelGenerator : MonoBehaviour
         resourceHolder = GameObject.Find("ResourceHolder").transform;
         StartSpawn();
 
+        respawnResourcesTime = dayrespawnResourcesTime;
         timeBtwSpawn = respawnResourcesTime;
     }
 
@@ -35,6 +39,16 @@ public class LevelGenerator : MonoBehaviour
     {
         if (!gm.gameOver)
         {
+            if (gm.day)
+            {
+                respawnResourcesTime = dayrespawnResourcesTime;
+            }
+
+            if (gm.night)
+            {
+                respawnResourcesTime = nightrespawnResourcesTime;
+            }
+
             if (timeBtwSpawn <= 0)
             {
                 if (curSpawn < spawnNumbers)

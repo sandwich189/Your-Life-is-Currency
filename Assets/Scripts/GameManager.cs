@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public float nightDuration = 30;
 
     public bool gameOver = false;
+
+    private bool pause = false;
     
     // Start is called before the first frame update
     void Start()
@@ -67,11 +69,28 @@ public class GameManager : MonoBehaviour
         {
             timebtwnight -= Time.deltaTime;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pause)
+            {
+                ui.pause.SetActive(true);
+                Time.timeScale = 0;
+                pause = true;
+            }
+            else
+            {
+                ui.pause.SetActive(false);
+                Time.timeScale = 1;
+                pause = false;
+            }
+            
+        }
     }
 
     public void ExitGame()
     {
-
+        SceneManager.LoadScene(0);
     }
 
     public void Retry()

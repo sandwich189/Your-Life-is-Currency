@@ -97,7 +97,7 @@ public class Enemy : MonoBehaviour
 
         if (playercheck)
         {
-            Debug.Log(playercheck.collider);
+            //Debug.Log(playercheck.collider);
             playercheck.collider.gameObject.GetComponent<Player>().Hit(attackType);
         }
 

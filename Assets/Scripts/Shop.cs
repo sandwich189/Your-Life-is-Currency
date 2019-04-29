@@ -370,6 +370,11 @@ public class Shop : MonoBehaviour
         {
             input -= num_ironToGold;
         }
+
+        if(input<= 0)
+        {
+            input = 0;
+        }
     }
     public void Minus10()
     {
@@ -411,6 +416,11 @@ public class Shop : MonoBehaviour
         else if (out_gold && in_iron)
         {
             input -= num_ironToGold * 3;
+        }
+
+        if (input <= 0)
+        {
+            input = 0;
         }
     }
 
