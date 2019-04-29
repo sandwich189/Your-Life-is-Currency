@@ -37,6 +37,9 @@ public class Enemy : MonoBehaviour
 
     public float attackRange = 1;
 
+    private float timebtwAttack = 0;
+    public float timeAttack = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +68,7 @@ public class Enemy : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(transform.position, checkRange, playerLayer);
         if (hit)
         {
-                playerDetected = true;
+            playerDetected = true;
         }
         else
         {
@@ -97,8 +100,16 @@ public class Enemy : MonoBehaviour
 
         if (playercheck)
         {
-            //Debug.Log(playercheck.collider);
-            playercheck.collider.gameObject.GetComponent<Player>().Hit(attackType);
+            if(timebtwAttack <= 0)
+            {
+                playercheck.collider.gameObject.GetComponent<Player>().Hit(attackType);
+                timebtwAttack = timeAttack;
+            }
+        }
+
+        if(timebtwAttack >= 0)
+        {
+            timebtwAttack -= Time.deltaTime;
         }
 
         if (collidercheck)

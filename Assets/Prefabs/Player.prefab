@@ -206,11 +206,11 @@ MonoBehaviour:
   stone_hp: 1
   iron_hp: 1
   gold_hp: 1
-  heartslot: 3
+  heartslot: 4
   wood: 0
   stone: 0
   iron: 0
-  gold: 1000
+  gold: 0
   moveSpeed: 1
   damage: 1
 --- !u!114 &7665148113770771519

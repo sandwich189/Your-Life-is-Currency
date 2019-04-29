@@ -196,6 +196,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e76c6c30f5520f641a846690388d0e1f, type: 3}
   - {fileID: 21300000, guid: d0687a83f5fbb1340bdd27efca9083fe, type: 3}
   attackRange: 0.4
+  timeAttack: 2
 --- !u!61 &1209634969
 BoxCollider2D:
   m_ObjectHideFlags: 0

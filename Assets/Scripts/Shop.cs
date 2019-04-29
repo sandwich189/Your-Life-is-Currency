@@ -7,6 +7,7 @@ public class Shop : MonoBehaviour
 {
     private Player player;
     public UIManager ui;
+    public GameManager gm;
 
     public TMP_Dropdown convertInOption;
     public TMP_Dropdown convertOutOption;
@@ -23,7 +24,7 @@ public class Shop : MonoBehaviour
     private bool in_wood = true, in_stone = false, in_iron = false, in_gold = false;
     private bool out_wood = true, out_stone = false, out_iron = false, out_gold = false;
 
-    private int input = 0;
+    private int input = 1;
     private int result = 0;
 
     private int in_opt_value = 0;

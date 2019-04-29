@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (shop)
                 {
+                    Time.timeScale = 0;
                     shopUI.SetActive(true);
                     shopOpen = true;
                 }
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour
             {
                shopUI.SetActive(false);
                shopOpen = false;
+                Time.timeScale = 1;
             }
         }
 
