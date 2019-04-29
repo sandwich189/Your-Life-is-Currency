@@ -8,6 +8,16 @@ public class GameManager : MonoBehaviour
     public GameObject enableGraphics;
     public Player player;
     public UIManager ui;
+    public EnemyManager em;
+
+    public bool day = true, night = false;
+    public int num_day;
+
+    private float timebtwday = 0;
+    public float dayDuration = 60;
+
+    private float timebtwnight = 0;
+    public float nightDuration = 30;
 
     public bool gameOver = false;
     
@@ -15,6 +25,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         enableGraphics.SetActive(true);
+        em = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
+
+        timebtwday = dayDuration;
+        timebtwnight = nightDuration;
     }
 
     // Update is called once per frame
@@ -28,8 +42,32 @@ public class GameManager : MonoBehaviour
 
             gameOver = true;
         }
-    }
 
+        if (timebtwday <= 0)
+        {
+            day = false;
+            night = true;
+            timebtwday = dayDuration;
+        }
+        
+        if(day)
+        {
+            timebtwday -= Time.deltaTime;
+        }
+
+        if (timebtwnight <= 0)
+        {
+            day = true;
+            night = false;
+            timebtwnight = nightDuration;
+            num_day += 1;
+        }
+        
+        if(night)
+        {
+            timebtwnight -= Time.deltaTime;
+        }
+    }
 
     public void ExitGame()
     {

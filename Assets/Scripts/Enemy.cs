@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float checkRange = 1f;
     public float speed;
     public LayerMask playerLayer;
+    public LayerMask resourceLayer;
 
     private bool playerDetected = false;
 
@@ -33,6 +34,8 @@ public class Enemy : MonoBehaviour
 
     public Sprite[] mob_sprite;
     int random_sprite = 0;
+
+    public float attackRange = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +92,21 @@ public class Enemy : MonoBehaviour
             target = randomLocation;
         }
 
+        RaycastHit2D playercheck = Physics2D.Raycast(transform.position, -transform.right, attackRange, playerLayer);
+        RaycastHit2D collidercheck = Physics2D.Raycast(transform.position, -transform.right, attackRange, resourceLayer);
+
+        if (playercheck)
+        {
+            Debug.Log(playercheck.collider);
+            playercheck.collider.gameObject.GetComponent<Player>().Hit(attackType);
+        }
+
+        if (collidercheck)
+        {
+            Randomlocation();
+        }
+
+
         if(hp <= 0)
         {
             Destroy(this.gameObject);
@@ -105,19 +123,6 @@ public class Enemy : MonoBehaviour
 
         randomLocationX = Random.Range(transform.position.x, transform.position.x + max_wander_distanceX) * randomdir;
         randomLocationY = Random.Range(transform.position.y, transform.position.y + max_wander_distanceY) * randomdir;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player"))
-        {
-            Randomlocation();
-        }
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<Player>().Hit(attackType);
-        }
     }
 
     public void Hit()

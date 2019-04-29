@@ -108,7 +108,7 @@ public class LevelGenerator : MonoBehaviour
 
             if (safetyNet > 50)
             {
-                Debug.Log("Too many attempts");
+                //Debug.Log("Too many attempts");
                 break;
             }
         }

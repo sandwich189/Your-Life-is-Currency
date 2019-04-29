@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
                 break;
         }
 
+        heartslot += 1;
         ui.RemoveHP();
     }
 }

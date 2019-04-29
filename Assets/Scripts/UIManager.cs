@@ -5,6 +5,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    private GameManager gm;
     public GameObject HUD;
     private Player player;
 
@@ -40,6 +41,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameOver;
 
+    public TextMeshProUGUI num_dayText;
+
     private int w = 0, s = 0, i = 0, g = 0;
 
     // Start is called before the first frame update
@@ -58,6 +61,8 @@ public class UIManager : MonoBehaviour
         stone_hp = player.stone_hp;
         iron_hp = player.iron_hp;
         gold_hp = player.gold_hp;
+
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         DrawHP();
     }
@@ -86,6 +91,8 @@ public class UIManager : MonoBehaviour
 
         txt_gold = goldHolder.GetComponent<TextMeshProUGUI>();
         txt_gold.text = "Gold: " + ui_gold;
+
+        num_dayText.text = "DAY: " + gm.num_day;
     }
 
     public void DrawHP()
@@ -123,44 +130,47 @@ public class UIManager : MonoBehaviour
 
     public void RemoveHP()
     {
-        if(wood_hp > player.wood_hp)
+        if (!gm.gameOver)
         {
-            if(woodHpHolder.transform.GetChild(w).gameObject != null)
+            if (wood_hp > player.wood_hp)
             {
-                Destroy(woodHpHolder.transform.GetChild(w).gameObject);
-                w--;
-            }
-            
-        }
+                if (woodHpHolder.transform.GetChild(w).gameObject != null)
+                {
+                    Destroy(woodHpHolder.transform.GetChild(w).gameObject);
+                    w--;
+                }
 
-        if (stone_hp > player.stone_hp)
-        {
-            if (stoneHpHolder.transform.GetChild(w).gameObject != null)
-            {
-                Destroy(stoneHpHolder.transform.GetChild(s).gameObject);
-                s--;
-            }
-            
-        }
-
-        if (iron_hp > player.iron_hp)
-        {
-            if (ironHpHolder.transform.GetChild(w).gameObject != null)
-            {
-                Destroy(ironHpHolder.transform.GetChild(i).gameObject);
-                i--;
-            }  
-            
-        }
-
-        if (gold_hp > player.gold_hp)
-        {
-            if(goldHpHolder.transform.GetChild(g).gameObject != null)
-            {
-                Destroy(goldHpHolder.transform.GetChild(g).gameObject);
-                g--;
             }
 
+            if (stone_hp > player.stone_hp)
+            {
+                if (stoneHpHolder.transform.GetChild(w).gameObject != null)
+                {
+                    Destroy(stoneHpHolder.transform.GetChild(s).gameObject);
+                    s--;
+                }
+
+            }
+
+            if (iron_hp > player.iron_hp)
+            {
+                if (ironHpHolder.transform.GetChild(w).gameObject != null)
+                {
+                    Destroy(ironHpHolder.transform.GetChild(i).gameObject);
+                    i--;
+                }
+
+            }
+
+            if (gold_hp > player.gold_hp)
+            {
+                if (goldHpHolder.transform.GetChild(g).gameObject != null)
+                {
+                    Destroy(goldHpHolder.transform.GetChild(g).gameObject);
+                    g--;
+                }
+
+            }
         }
     }
 

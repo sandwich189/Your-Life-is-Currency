@@ -4,24 +4,59 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-
+    private GameManager gm;
     public float spawnTime = 3f;
+    private float timeBtwSpawn = 0;
     public Transform[] spawnPoints;
     public GameObject enemy;
 
+    public int daySpawnTime;
+    public int nightSpawnTime;
+
     void Start()
     {
-        // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-
-    void Spawn()
+    private void Update()
     {
-        // Find a random index between zero and one less than the number of spawn points.
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+        if (gm.day)
+        {
+            spawnTime = daySpawnTime;
+        }
 
-        // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        if (gm.night)
+        {
+            spawnTime = nightSpawnTime;
+        }
+
+        if (timeBtwSpawn <= 0)
+        {
+            Spawn(gm.day);
+            timeBtwSpawn = spawnTime;
+        }
+        else
+        {
+            timeBtwSpawn -= Time.deltaTime;
+        }
+    }
+
+    void Spawn(bool day)
+    {
+        if (day)
+        {
+            int random = Random.Range(0, 4);
+
+            Instantiate(enemy, spawnPoints[random].position, spawnPoints[random].rotation);
+        }
+
+        if (!day)
+        {
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                Instantiate(enemy, spawnPoints[i].position, spawnPoints[i].rotation);
+            }
+        }
+        
     }
 }

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private int dir = -1;
 
     private Animator anim;
+    private Animator pick_anim;
     private SpriteRenderer sprite;
 
     // Start is called before the first frame update
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        pick_anim = transform.GetChild(1).GetComponent<Animator>();
 
         sprite.enabled = false;
     }
@@ -58,17 +60,19 @@ public class PlayerController : MonoBehaviour
             dir = -1;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetMouseButtonDown(0)))
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetMouseButton(0)))
         {
             if(timeBtwAttack <= 0)
             {
                 Attack(damage);
                 timeBtwAttack = attackSpeed;
+                pick_anim.SetTrigger("isAttacking");
             }
             else
             {
                 timeBtwAttack -= Time.deltaTime;
             }
+
         }
         else
         {
