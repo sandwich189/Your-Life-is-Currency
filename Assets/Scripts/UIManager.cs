@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour
     public GameObject ironHpIcon;
     public GameObject goldHpIcon;
 
+    public TextMeshProUGUI soulHpText;
+
     private int w = 0, s = 0, i = 0, g = 0;
 
     // Start is called before the first frame update
@@ -112,11 +114,35 @@ public class UIManager : MonoBehaviour
             g++;
             GameObject ghp = Instantiate(goldHpIcon, new Vector3(goldHpIcon.transform.position.x, goldHpIcon.transform.position.y - (g * 40)), Quaternion.identity);
             ghp.transform.SetParent(goldHpHolder.transform);
-        }    
+        }
+
+        soulHpText.text = "x " + player.heartslot;
     }
 
     public void RemoveHP()
     {
-        
+        if(wood_hp > player.wood_hp)
+        {
+            Destroy(woodHpHolder.transform.GetChild(w).gameObject);
+            w--;
+        }
+
+        if (stone_hp > player.stone_hp)
+        {
+            Destroy(stoneHpHolder.transform.GetChild(s).gameObject);
+            s--;
+        }
+
+        if (iron_hp > player.iron_hp)
+        {
+            Destroy(ironHpHolder.transform.GetChild(i).gameObject);
+            i--;
+        }
+
+        if (gold_hp > player.gold_hp)
+        {
+            Destroy(goldHpHolder.transform.GetChild(g).gameObject);
+            g--;
+        }
     }
 }

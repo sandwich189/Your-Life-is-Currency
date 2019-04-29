@@ -33,6 +33,7 @@ public class Shop : MonoBehaviour
     public int price_stoneheart = 0;
     public int price_ironheart = 0;
     public int price_goldheart = 0;
+    public int price_soulheart = 0;
 
     public int price_sell_woodheart = 0;
     public int price_sell_stoneheart = 0;
@@ -43,11 +44,14 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI txt_price_stoneheart;
     public TextMeshProUGUI txt_price_ironheart;
     public TextMeshProUGUI txt_price_goldheart;
+    public TextMeshProUGUI txt_price_soulheart;
 
     public TextMeshProUGUI txt_price_sell_woodheart;
     public TextMeshProUGUI txt_price_sell_stoneheart;
     public TextMeshProUGUI txt_price_sell_ironheart;
     public TextMeshProUGUI txt_price_sell_goldheart;
+
+    private bool enufHearts = false;
 
     // Start is called before the first frame update
     void Start()
@@ -118,6 +122,15 @@ public class Shop : MonoBehaviour
             case 3:
                 out_gold = true;
                 break;
+        }
+
+        if (player.heartslot - 1 >= 0)
+        {
+            enufHearts = true;
+        }
+        else
+        {
+            enufHearts = false;
         }
 
         Convert();
@@ -466,44 +479,101 @@ public class Shop : MonoBehaviour
     }
 
     public void BuyWoodHP()
-    {
-        if(player.wood - price_woodheart >= 0)
+    { 
+        if(enufHearts && player.wood - price_woodheart >= 0)
         {
             player.wood -= price_woodheart;
             player.wood_hp += 1;
+            player.heartslot -= 1;
             ui.DrawHP();
         }
     }
 
     public void BuyStoneHP()
     {
-        if (player.stone - price_stoneheart >= 0)
+        if (enufHearts && player.stone - price_stoneheart >= 0)
         {
             player.stone -= price_stoneheart;
             player.stone_hp += 1;
+            player.heartslot -= 1;
             ui.DrawHP();
         }
     }
 
     public void BuyIronHP()
     {
-        if(player.iron - price_ironheart >= 0)
+        if(enufHearts && player.iron - price_ironheart >= 0)
         {
-            player.iron_hp -= price_ironheart;
+            player.iron -= price_ironheart;
             player.iron_hp += 1;
+            player.heartslot -= 1;
             ui.DrawHP();
         }
-        
     }
 
     public void BuyGoldHP()
     {
-        if(player.gold - price_goldheart >= 0)
+        if(enufHearts && player.gold - price_goldheart >= 0)
         {
-            player.gold_hp -= price_goldheart;
+            player.gold -= price_goldheart;
             player.gold_hp += 1;
+            player.heartslot -= 1;
             ui.DrawHP();
         }
-       
     }
+
+    public void BuySoulHP()
+    {
+        if (player.gold - price_soulheart >= 0)
+        {
+            player.gold -= price_soulheart;
+            player.heartslot += 1;
+            ui.DrawHP();
+        }
+    }
+
+    public void sellWoodHP()
+    {
+        if(player.wood_hp - 1 >= 1)
+        {
+            player.wood_hp -= 1;
+            player.wood += price_sell_woodheart;
+            player.heartslot += 1;
+            ui.RemoveHP();
+        }   
+    }
+
+    public void sellStoneHP()
+    {
+        if (player.stone_hp - 1 >= 1)
+        {
+            player.stone_hp -= 1;
+            player.stone += price_sell_stoneheart;
+            player.heartslot += 1;
+            ui.RemoveHP();
+        }
+    }
+
+    public void sellIronHP()
+    {
+        if (player.iron_hp - 1 >= 1)
+        {
+            player.iron_hp -= 1;
+            player.iron += price_sell_ironheart;
+            player.heartslot += 1;
+            ui.RemoveHP();
+        }
+    }
+
+    public void sellGoldHP()
+    {
+        if (player.gold_hp - 1 >= 1)
+        {
+            player.gold_hp -= 1;
+            player.gold += price_sell_goldheart;
+            player.heartslot += 1;
+            ui.RemoveHP();
+        }
+    }
+
 }

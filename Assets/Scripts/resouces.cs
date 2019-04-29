@@ -6,11 +6,21 @@ public class resouces : MonoBehaviour
 {
     public int hp = 1;
 
+    private SpriteRenderer sprite;
+    public Sprite[] sprite_variants;
+
     public bool wood = true, stone = false, iron = false, gold = false;
     private int resourcetype;
 
     private void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
+
+        if(sprite_variants.Length != 0)
+        {
+            sprite.sprite = sprite_variants[Random.Range(0, sprite_variants.Length)];
+        }
+
         if (wood)
         {
             resourcetype = 0;

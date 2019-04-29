@@ -23,10 +23,17 @@ public class PlayerController : MonoBehaviour
 
     private int dir = -1;
 
+    private Animator anim;
+    private SpriteRenderer sprite;
+
     // Start is called before the first frame update
     void Start()
     {
+        sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
+        sprite.enabled = false;
     }
 
     // Update is called once per frame
@@ -83,6 +90,16 @@ public class PlayerController : MonoBehaviour
                shopUI.SetActive(false);
                shopOpen = false;
             }
+        }
+
+        //Animation
+        if (moveInput.x != 0 || moveInput.y != 0)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
         }
     }
 
