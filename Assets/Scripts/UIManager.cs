@@ -5,7 +5,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    private GameObject ui;
+    public GameObject HUD;
     private Player player;
 
     private GameObject resourceHolder;
@@ -38,14 +38,16 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI soulHpText;
 
+    public GameObject gameOver;
+
     private int w = 0, s = 0, i = 0, g = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").gameObject.GetComponent<Player>();
-        ui = this.gameObject.transform.GetChild(0).gameObject;
-        resourceHolder = ui.transform.GetChild(0).gameObject;
+        HUD = this.gameObject.transform.GetChild(0).gameObject;
+        resourceHolder = HUD.transform.GetChild(0).gameObject;
 
         woodHolder = resourceHolder.transform.GetChild(0).gameObject;
         stoneHolder = resourceHolder.transform.GetChild(1).gameObject;
@@ -123,26 +125,43 @@ public class UIManager : MonoBehaviour
     {
         if(wood_hp > player.wood_hp)
         {
-            Destroy(woodHpHolder.transform.GetChild(w).gameObject);
-            w--;
+            if(woodHpHolder.transform.GetChild(w).gameObject != null)
+            {
+                Destroy(woodHpHolder.transform.GetChild(w).gameObject);
+                w--;
+            }
+            
         }
 
         if (stone_hp > player.stone_hp)
         {
-            Destroy(stoneHpHolder.transform.GetChild(s).gameObject);
-            s--;
+            if (stoneHpHolder.transform.GetChild(w).gameObject != null)
+            {
+                Destroy(stoneHpHolder.transform.GetChild(s).gameObject);
+                s--;
+            }
+            
         }
 
         if (iron_hp > player.iron_hp)
         {
-            Destroy(ironHpHolder.transform.GetChild(i).gameObject);
-            i--;
+            if (ironHpHolder.transform.GetChild(w).gameObject != null)
+            {
+                Destroy(ironHpHolder.transform.GetChild(i).gameObject);
+                i--;
+            }  
+            
         }
 
         if (gold_hp > player.gold_hp)
         {
-            Destroy(goldHpHolder.transform.GetChild(g).gameObject);
-            g--;
+            if(goldHpHolder.transform.GetChild(g).gameObject != null)
+            {
+                Destroy(goldHpHolder.transform.GetChild(g).gameObject);
+                g--;
+            }
+
         }
     }
+
 }

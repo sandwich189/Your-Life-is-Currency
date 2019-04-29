@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveVelocity;
 
-    public int damage = 1;
+    private int damage = 1;
 
     public float attackSpeed = 1f;
     private float timeBtwAttack = 0f;
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        damage = transform.GetComponent<Player>().damage;
+
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         //normalized clamp diagonal movespeed
@@ -118,6 +120,11 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.GetComponent<resouces>())
             {
                 hit.collider.GetComponent<resouces>().hp -= 1;
+            }
+
+            if (hit.collider.GetComponent<Enemy>())
+            {
+                hit.collider.GetComponent<Enemy>().Hit();
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-
+    public GameManager gm;
     public float genAreaRadiusX = 3f;
     public float genAreaRadiusY = 3f;
 
@@ -33,25 +33,27 @@ public class LevelGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeBtwSpawn <= 0)
+        if (!gm.gameOver)
         {
-            if (curSpawn < spawnNumbers)
+            if (timeBtwSpawn <= 0)
             {
-                for (int i = curSpawn; i < spawnNumbers; i++)
+                if (curSpawn < spawnNumbers)
                 {
-                    Spawn();
-                }
-                Debug.Log("spawned resources");
+                    for (int i = curSpawn; i < spawnNumbers; i++)
+                    {
+                        Spawn();
+                    }
+                    Debug.Log("spawned resources");
                 
-            }
+                }
 
-            timeBtwSpawn = respawnResourcesTime;
+                timeBtwSpawn = respawnResourcesTime;
+            }
+            else
+            {
+                timeBtwSpawn -= Time.deltaTime;
+            }
         }
-        else
-        {
-            timeBtwSpawn -= Time.deltaTime;
-        }
-        
     }
 
     void StartSpawn()
